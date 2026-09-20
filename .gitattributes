@@ -1,0 +1,3 @@
+.agents/mas/policy.yaml text eol=lf
+.agents/mas/**/*.ts text eol=lf
+scripts/mas.ts text eol=lf

@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Policy, ActionKind } from './contracts';
 
-export const POLICY_SHA256 = '4efe5d559af573ea39005d5b8950ef09a4b5991d9f27af75138de4638ae8f668';
+export const POLICY_SHA256 = '1ca19b6e3210e4cb13c73b8565ba85874a4993bd5d6079826f17cf54d3d42c90';
 export const POLICY: Policy = Object.freeze({
   version: 1,
   mode: 'analysis-only',
@@ -14,9 +14,32 @@ export const POLICY: Policy = Object.freeze({
   deniedActions: Object.freeze(['edit', 'delete', 'install', 'publish'] as ActionKind[]),
 });
 
+export interface PolicyVerification {
+  readonly valid: boolean;
+  readonly path: string;
+  readonly expectedHash: string;
+  readonly actualHash?: string;
+  readonly error?: string;
+}
+
+export function verifyPolicyDetails(root: string): PolicyVerification {
+  const path = join(root, '.agents', 'mas', 'policy.yaml');
+  try {
+    const current = readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
+    const actualHash = createHash('sha256').update(current).digest('hex');
+    return { valid: actualHash === POLICY_SHA256, path, expectedHash: POLICY_SHA256, actualHash };
+  } catch (error) {
+    return {
+      valid: false,
+      path,
+      expectedHash: POLICY_SHA256,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 export function verifyPolicy(root: string): boolean {
-  const current = readFileSync(join(root, '.agents', 'mas', 'policy.yaml'), 'utf8');
-  return createHash('sha256').update(current).digest('hex') === POLICY_SHA256;
+  return verifyPolicyDetails(root).valid;
 }
 
 export function isProtectedPath(path: string): boolean {
