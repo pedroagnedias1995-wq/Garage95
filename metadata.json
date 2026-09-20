@@ -1,0 +1,8 @@
+{
+  "name": "Garage 95",
+  "description": "Garage 95 — o clube da cultura automotiva. Rede social exclusiva para colecionadores e entusiastas de automóveis clássicos, antigos e esportivos, com garagem digital, marketplace, eventos e comunidades.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

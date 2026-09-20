@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-cinzel: 'Cinzel', serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  :focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Global Scrollbar Theme - Vintage Racing Green & Antique Gold */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #384D3A #121813;
+  }
+
+  /* WebKit Scrollbars (Chrome, Safari, Edge, Opera) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #121813;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #2D3E30 0%, #3B4E3C 100%);
+    border-radius: 9999px;
+    border: 2px solid #121813;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #D4AF37 0%, #AA820A 100%);
+    border: 1.5px solid #121813;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.45);
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: #E5C158;
+    border: 1px solid #121813;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #101411;
+  }
+}
+
+.font-serif-heading {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-mono-spec {
+  font-family: 'Space Mono', monospace;
+}
+
+/* Custom Gold Glow & Moss Background utilities */
+.bg-radial-moss {
+  background: radial-gradient(circle at 50% 0%, #223124 0%, #151d16 60%, #101411 100%);
+}
+
+/* Garage 95 Industrial Shutter Door Background (Matching the official emblem image) */
+.bg-garage-theme {
+  background-color: #121914;
+  background-image: 
+    /* Ambient workshop top-down light and corner vignettes */
+    radial-gradient(ellipse 80% 60% at 50% 25%, rgba(68, 97, 72, 0.35) 0%, rgba(18, 25, 20, 0.85) 65%, rgba(10, 14, 11, 0.98) 100%),
+    /* Industrial garage horizontal metal slats & grooves */
+    repeating-linear-gradient(
+      180deg,
+      #2B3C2D 0px,
+      #354B38 6px,
+      #3E5742 16px,
+      #2A3C2D 26px,
+      #1F2D21 28px,
+      #141E15 32px
+    );
+  background-attachment: fixed;
+}
+
+/* Metallic panel separator line */
+.garage-slat-border {
+  border-top: 1px solid rgba(243, 229, 171, 0.12);
+  border-bottom: 2px solid rgba(15, 22, 16, 0.9);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA820A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border-subtle {
+  border-color: rgba(212, 175, 55, 0.22);
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 15px rgba(201, 162, 39, 0.15);
+}
+
+/* Specialized Scrollbar Classes */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #141C15;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3B4D3A;
+  border-radius: 9999px;
+  border: 1.5px solid #141C15;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+/* Gold Accent Scrollbar for prominent sections */
+.gold-scrollbar {
+  scrollbar-color: #D4AF37 #141C15;
+}
+
+.gold-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.gold-scrollbar::-webkit-scrollbar-track {
+  background: #141C15;
+  border-radius: 9999px;
+}
+
+.gold-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D4AF37 0%, #9B7710 100%);
+  border-radius: 9999px;
+  border: 1.5px solid #141C15;
+}
+
+.gold-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #E5C158;
+  box-shadow: 0 0 10px rgba(229, 193, 88, 0.6);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

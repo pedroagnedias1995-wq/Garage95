@@ -1,0 +1,31 @@
+# MAS policy v1. Immutable: changes require an explicit architecture review.
+version: 1
+mode: analysis-only
+max_planned_files: 3
+protected_paths:
+  - .agents/mas/policy.yaml
+  - .env
+  - .env.*
+  - package-lock.json
+  - yarn.lock
+  - pnpm-lock.yaml
+checks:
+  - neutral-user
+  - generic-avatar-fallback
+  - mock-data
+  - protected-paths
+  - file-limit
+  - tests-status
+  - build-status
+actions:
+  allowed:
+    - inspect
+    - report
+    - propose
+  denied:
+    - edit
+    - delete
+    - install
+    - publish
+ci_adapter:
+  command: npm run mas:analyze
