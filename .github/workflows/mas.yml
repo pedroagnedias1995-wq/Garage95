@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22.x'
           cache: npm
@@ -47,6 +47,10 @@ jobs:
             echo "EOF" >> "$GITHUB_ENV"
           fi
 
+      - name: Generate consolidated report
+        if: always()
+        run: npm run mas:report
+
       - name: Verify MAS policy
         run: npm run mas:verify-policy
 
@@ -56,12 +60,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Generate consolidated report
-        run: npm run mas:report
-
       - name: Upload MAS report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mas-report
           path: |

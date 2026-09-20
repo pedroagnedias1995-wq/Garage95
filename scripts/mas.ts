@@ -1,6 +1,6 @@
 import { analyze } from '../.agents/mas/orchestrator';
 import { writeReport, toMarkdown } from '../.agents/mas/report';
-import { verifyPolicy } from '../.agents/mas/rules';
+import { verifyPolicyDetails } from '../.agents/mas/rules';
 
 const command = process.argv[2] ?? 'analyze';
 const root = process.cwd();
@@ -14,9 +14,15 @@ const selectedFiles = cliFiles.length
   : (process.env.MAS_CHANGED_FILES ? parseChangedFiles(process.env.MAS_CHANGED_FILES) : undefined);
 const runAnalysis = () => analyze(root, selectedFiles);
 if (command === 'verify-policy') {
-  const valid = verifyPolicy(root);
-  console.log(valid ? 'MAS policy verified.' : 'MAS policy verification failed.');
-  process.exitCode = valid ? 0 : 1;
+  const verification = verifyPolicyDetails(root);
+  if (verification.valid) {
+    console.log(`MAS policy verified. SHA-256: ${verification.actualHash}`);
+  } else {
+    console.error(`MAS policy verification failed: ${verification.error
+      ? `unable to read ${verification.path}: ${verification.error}`
+      : `SHA-256 mismatch for ${verification.path}. Expected ${verification.expectedHash}, got ${verification.actualHash}.`}`);
+    process.exitCode = 1;
+  }
 } else if (command === 'report') {
   const report = runAnalysis();
   const paths = writeReport(report, root);
