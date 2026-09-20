@@ -5,6 +5,7 @@ import { verifyPolicy } from '../.agents/mas/rules';
 const command = process.argv[2] ?? 'analyze';
 const root = process.cwd();
 const cliFiles = process.argv.slice(3).filter((argument) => argument !== '--files');
+// Validation-only change for the GitHub Actions workflow.
 const parseChangedFiles = (value: string): string[] => value
   .split(/[,\r\n]+/)
   .map((file) => file.trim())
