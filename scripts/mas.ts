@@ -5,9 +5,13 @@ import { verifyPolicy } from '../.agents/mas/rules';
 const command = process.argv[2] ?? 'analyze';
 const root = process.cwd();
 const cliFiles = process.argv.slice(3).filter((argument) => argument !== '--files');
+const parseChangedFiles = (value: string): string[] => value
+  .split(/[,\r\n]+/)
+  .map((file) => file.trim())
+  .filter(Boolean);
 const selectedFiles = cliFiles.length
   ? cliFiles
-  : (process.env.MAS_CHANGED_FILES?.split(',').map((file) => file.trim()).filter(Boolean) ?? undefined);
+  : (process.env.MAS_CHANGED_FILES ? parseChangedFiles(process.env.MAS_CHANGED_FILES) : undefined);
 const runAnalysis = () => analyze(root, selectedFiles);
 if (command === 'verify-policy') {
   const valid = verifyPolicy(root);
